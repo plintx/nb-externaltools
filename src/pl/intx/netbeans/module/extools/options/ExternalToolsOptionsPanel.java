@@ -5,8 +5,11 @@
  */
 package pl.intx.netbeans.module.extools.options;
 
+import java.io.IOException;
+import javax.swing.JFileChooser;
 import pl.intx.netbeans.module.extools.models.ExternalTool;
 import javax.swing.JOptionPane;
+import org.openide.util.Exceptions;
 
 final class ExternalToolsOptionsPanel extends javax.swing.JPanel {
 
@@ -39,6 +42,7 @@ final class ExternalToolsOptionsPanel extends javax.swing.JPanel {
         jDeleteToolButton = new javax.swing.JButton();
         jArgsLabel = new javax.swing.JLabel();
         jToolArgsTextField = new javax.swing.JTextField();
+        jBrowseButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jToolList = new javax.swing.JList();
@@ -78,30 +82,42 @@ final class ExternalToolsOptionsPanel extends javax.swing.JPanel {
 
         jToolArgsTextField.setText(org.openide.util.NbBundle.getMessage(ExternalToolsOptionsPanel.class, "ExternalToolsOptionsPanel.jToolArgsTextField.text")); // NOI18N
 
+        org.openide.awt.Mnemonics.setLocalizedText(jBrowseButton, org.openide.util.NbBundle.getMessage(ExternalToolsOptionsPanel.class, "ExternalToolsOptionsPanel.jBrowseButton.text")); // NOI18N
+        jBrowseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBrowseButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jAddNewToolButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jUpdateToolButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDeleteToolButton)
-                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jNameLabel)
-                    .addComponent(jPathLabel)
-                    .addComponent(jArgsLabel))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-                    .addComponent(jToolPathTextField)
-                    .addComponent(jToolArgsTextField))
-                .addGap(55, 55, 55))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 286, Short.MAX_VALUE)
+                        .addComponent(jAddNewToolButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jUpdateToolButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDeleteToolButton))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jNameLabel)
+                            .addComponent(jPathLabel)
+                            .addComponent(jArgsLabel))
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jToolPathTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBrowseButton))
+                            .addComponent(jToolNameTextField)
+                            .addComponent(jToolArgsTextField))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,12 +129,13 @@ final class ExternalToolsOptionsPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPathLabel)
-                    .addComponent(jToolPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jToolPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBrowseButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jArgsLabel)
                     .addComponent(jToolArgsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jAddNewToolButton)
                     .addComponent(jUpdateToolButton)
@@ -159,7 +176,7 @@ final class ExternalToolsOptionsPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
+                .addComponent(jSplitPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -208,6 +225,25 @@ final class ExternalToolsOptionsPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jDeleteToolButtonActionPerformed
 
+    private void jBrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowseButtonActionPerformed
+        String filePath = browseForFile();
+        if (filePath != null)
+            jToolPathTextField.setText(filePath);
+    }//GEN-LAST:event_jBrowseButtonActionPerformed
+
+    private String browseForFile() {
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            try {
+                return chooser.getSelectedFile().getCanonicalPath();
+            } catch (IOException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+        }
+        return null;
+    }
+
     void load() {
         controller.loadListModel();
         jToolList.setModel(controller.getToolListModel());
@@ -251,11 +287,13 @@ final class ExternalToolsOptionsPanel extends javax.swing.JPanel {
         jToolArgsTextField.setEnabled(enabled);
         jUpdateToolButton.setEnabled(enabled);
         jDeleteToolButton.setEnabled(enabled);
+        jBrowseButton.setEnabled(enabled);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jAddNewToolButton;
     private javax.swing.JLabel jArgsLabel;
+    private javax.swing.JButton jBrowseButton;
     private javax.swing.JButton jDeleteToolButton;
     private javax.swing.JLabel jNameLabel;
     private javax.swing.JPanel jPanel1;
