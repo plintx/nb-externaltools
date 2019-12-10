@@ -3,6 +3,8 @@ NetBeans External Tools Plugin
 
 With this plugin you can run external tools in NetBeans.
 
+Download [here](https://github.com/plintx/nb-extools/blob/master/build/pl-intx-netbeans-module-extools.nbm?raw=true)
+
 ----
 
 Add tools in Tools/Options/Miscellaneous/External Tools:
