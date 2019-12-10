@@ -49,19 +49,9 @@ public class ExternalTools {
         NbPreferences.forModule(ExternalTools.class).put(PREFERENCES_KEY_TOOL_LIST, listModelSerialized);
     }
 
-    public ArrayList<ExternalTool> getTools() {
-        return tools;
-    }
-
-    public void setTools(ArrayList<ExternalTool> tools) {
-        this.tools = tools;
-    }
-
     public void execute(ExternalTool tool, FileObject fo) {
         File actualFile = FileUtil.toFile(fo);
         String toolPath = tool.getPath();
-
-        
 
         try {
             String args = tool.getArgs().replace("${file}", actualFile.getCanonicalPath())
@@ -69,7 +59,7 @@ public class ExternalTools {
                     .replace("${fileBasename}", fo.getName())
                     .replace("${fileExt}", fo.getExt());
             logger.log(Level.INFO, "Calling command: {0}", toolPath + " " + args);
-            
+
             ProcessBuilder processBuilder = new ProcessBuilder(toolPath, args);
             processBuilder.inheritIO();
             processBuilder.start();
@@ -78,4 +68,13 @@ public class ExternalTools {
             Exceptions.printStackTrace(ex);
         }
     }
+
+    public ArrayList<ExternalTool> getTools() {
+        return tools;
+    }
+
+    public void setTools(ArrayList<ExternalTool> tools) {
+        this.tools = tools;
+    }
+
 }

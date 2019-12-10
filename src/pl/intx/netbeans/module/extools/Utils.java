@@ -12,6 +12,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 
 /**
  *
@@ -42,5 +44,10 @@ public class Utils {
             }
             return new String(baos.toByteArray());
         }
+    }
+
+    public static void showMessage(String message) {
+        NotifyDescriptor.Message m = new NotifyDescriptor.Message(message);
+        DialogDisplayer.getDefault().notify(m);
     }
 }

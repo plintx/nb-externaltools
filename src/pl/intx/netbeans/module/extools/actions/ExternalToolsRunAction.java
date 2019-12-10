@@ -125,8 +125,4 @@ public class ExternalToolsRunAction extends NodeAction {
         return new HelpCtx(DEFAULT);
     }
 
-    public static void showMessage(String message) {
-        NotifyDescriptor.Message m = new NotifyDescriptor.Message(message);
-        DialogDisplayer.getDefault().notify(m);
-    }
 }
